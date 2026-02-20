@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users</title>
+</head>
+<body>
+<h2>Users</h2>
+
+<h3>Create User</h3>
+<input type="text" id="name" placeholder="Name">
+<input type="text" id="email" placeholder="Email">
+<button onclick="createUser()">Create</button>
+
+<h3>All Users</h3>
+<button onclick="getUsers()">Load Users</button>
+<ul id="userList"></ul>
+
+<script>
+async function createUser() {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+
+    const res = await fetch("/api/user", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({name, email})
+    });
+    const data = await res.json();
+    alert("User created with ID: " + data.id);
+    getUsers();
+}
+
+async function getUsers() {
+    const res = await fetch("/api/user");
+    const users = await res.json();
+    const ul = document.getElementById("userList");
+    ul.innerHTML = "";
+    users.forEach(u => {
+        const li = document.createElement("li");
+        li.innerText = `${u.id}: ${u.name} (${u.email})`;
+        ul.appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>

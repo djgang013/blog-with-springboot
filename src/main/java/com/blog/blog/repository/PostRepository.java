@@ -1,7 +1,7 @@
-package com.blog.repository;
+package com.blog.blog.repository;
 
 import org.springframework.stereotype.Repository;
-import com.blog.model.Post;
+import com.blog.blog.model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository

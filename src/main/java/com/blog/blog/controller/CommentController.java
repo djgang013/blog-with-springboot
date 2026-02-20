@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.blog.controller;
 
 public class CommentController {
     
