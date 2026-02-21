@@ -8,26 +8,32 @@
 
 <h3>Create Comment</h3>
 <input type="number" id="postId" placeholder="Post ID">
-<input type="text" id="text" placeholder="Comment text">
-<button onclick="createComment()">Create Comment</button>
+<input type="text" id="message" placeholder="Comment message">
+<button onclick="addComment()">Create Comment</button>
 
 <h3>All Comments</h3>
 <button onclick="getComments()">Load Comments</button>
 <ul id="commentList"></ul>
 
 <script>
-async function createComment() {
-    const postId = document.getElementById("postId").value;
-    const text = document.getElementById("text").value;
+async function addComment() {
 
-    const res = await fetch(`/api/comments/post/${postId}`, {
+    const postId = document.getElementById("postId").value;
+    const message = document.getElementById("message").value;
+
+    const response = await fetch(`/api/comments/post/${postId}`, {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({text})
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            message: message
+        })
     });
-    const data = await res.json();
-    alert("Comment created with ID: " + data.id);
-    getComments();
+
+    if (response.ok) {
+        alert("Comment added!");
+    } else {
+        alert("Error adding comment");
+    }
 }
 
 async function getComments() {
@@ -37,7 +43,7 @@ async function getComments() {
     ul.innerHTML = "";
     comments.forEach(c => {
         const li = document.createElement("li");
-        li.innerText = `${c.id}: ${c.text} - on post ${c.post.id}`;
+        li.innerText = `${c.id}: ${c.message} - on post ${c.post ? c.post.id : 'N/A'}`;
         ul.appendChild(li);
     });
 }

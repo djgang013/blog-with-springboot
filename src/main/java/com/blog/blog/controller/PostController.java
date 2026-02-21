@@ -2,6 +2,7 @@ package com.blog.blog.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +38,14 @@ public class PostController {
     return ResponseEntity.ok(postRepository.save(post));
    }).orElse(ResponseEntity.notFound().build());
    }
+   @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deletePost(@PathVariable Long id){
+        return postRepository.findById(id)
+        .map(post ->{
+            postRepository.delete(post);
+            return ResponseEntity.ok().build();
+      })
+      .orElse(ResponseEntity.notFound().build());}
    
    
 }
