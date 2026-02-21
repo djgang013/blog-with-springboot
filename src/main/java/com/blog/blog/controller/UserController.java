@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blog.blog.repository.UserRepository;
 import com.blog.blog.model.User;
+import com.blog.blog.repository.UserRepository;
 
 
 @RequestMapping("/api/user")

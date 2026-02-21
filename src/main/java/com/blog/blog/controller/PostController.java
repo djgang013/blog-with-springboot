@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blog.blog.model.Post;
 import com.blog.blog.repository.PostRepository;
 import com.blog.blog.repository.UserRepository;
-import com.blog.blog.model.Post;
 
 @RequestMapping("/api/posts")
 @RestController
