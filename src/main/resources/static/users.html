@@ -9,6 +9,7 @@
 <h3>Create User</h3>
 <input type="text" id="name" placeholder="Name">
 <input type="text" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
 <button onclick="createUser()">Create</button>
 
 <h3>All Users</h3>
@@ -19,11 +20,12 @@
 async function createUser() {
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
     const res = await fetch("/api/user", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({name, email})
+        body: JSON.stringify({name, email, password})
     });
     const data = await res.json();
     alert("User created with ID: " + data.id);
