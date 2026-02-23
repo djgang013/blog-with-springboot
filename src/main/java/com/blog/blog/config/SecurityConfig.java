@@ -26,13 +26,9 @@ public class SecurityConfig {
             .cors(cors -> {})   
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/", "/index.html", "/static/**",
-                        "/posts.html", "/comments.html", "/users.html",
-                        "/*.css", "/*.js", "/favicon.ico").permitAll()
+                .requestMatchers("/", "/index.html", "/posts.html", "/users.html", "/favicon.ico").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/posts/**", "/api/comments/**", "/api/user/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/user").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/posts/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/comments/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/user/**").permitAll()
                 .anyRequest().authenticated()
             ).addFilterBefore(jwtFilter,
             UsernamePasswordAuthenticationFilter.class);

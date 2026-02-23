@@ -2,6 +2,7 @@ package com.blog.blog.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,15 @@ public class PostController {
     post.setUser(user);
     return ResponseEntity.ok(postRepository.save(post));
    }).orElse(ResponseEntity.notFound().build());
+   }
+
+   @PostMapping
+   public ResponseEntity<Post> createPostAuthenticated(@RequestBody Post post, Authentication authentication){
+       String email = authentication.getName();
+       return userRepository.findByEmail(email).map(user -> {
+           post.setUser(user);
+           return ResponseEntity.ok(postRepository.save(post));
+       }).orElse(ResponseEntity.status(401).build());
    }
    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deletePost(@PathVariable Long id){
